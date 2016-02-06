@@ -1,0 +1,54 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "dc3b164f97b4be016888d9654e652273",
+    "content-hash": "862bbc858acd8be42261ab012d9a1011",
+    "packages": [
+        {
+            "name": "rdx/http",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rudiedirkx/HTTP.git",
+                "reference": "46de2f4276a34c72d7d4b85ef89bfe71fe497ec0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rudiedirkx/HTTP/zipball/46de2f4276a34c72d7d4b85ef89bfe71fe497ec0",
+                "reference": "46de2f4276a34c72d7d4b85ef89bfe71fe497ec0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "rdx\\http\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rudie Dirkx",
+                    "email": "github@hotblocks.nl"
+                }
+            ],
+            "description": "A simple HTTP wrapper around CURL, with request and response classes.",
+            "time": "2016-01-10 18:20:15"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "rdx/http": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

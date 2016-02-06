@@ -1,0 +1,5 @@
+{
+    "require": {
+        "rdx/http": "dev-master"
+    }
+}
