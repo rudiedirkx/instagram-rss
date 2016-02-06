@@ -10,17 +10,30 @@ header('Content-type: text/xml; charset=utf-8');
 $username = (string) @$_GET['user'] ?: 'instagram';
 
 // 1. Overview
-$request = HTTP::create('https://www.instagram.com/' . urlencode($username) . '/');
+$url = 'https://www.instagram.com/' . urlencode($username) . '/';
+$request = HTTP::create($url);
 $response = $request->request();
 
 // 2. Extract JSON
-preg_match('#>\s*window._sharedData\s*=\s*(\{.+?)</script>#', $response->body, $match);
+if ( !preg_match('#>\s*window._sharedData\s*=\s*(\{.+?)</script>#', $response->body, $match) ) {
+	header('Content-type: text/plain; charset=utf-8');
+	exit("Can't extract any JSON. Wrong URL? $url");
+}
+
 $json = trim($match[1], ' ;');
 $data = json_decode($json, true);
-$media = $data['entry_data']['ProfilePage'][0]['user']['media']['nodes'];
+if ( !isset($data['entry_data']['ProfilePage'][0]['user']) ) {
+	header('Content-type: text/plain; charset=utf-8');
+	exit("Can't extract profile JSON. Invalid profile?");
+}
 
-// print_r($media);
-// exit;
+$profile = $data['entry_data']['ProfilePage'][0]['user'];
+if ( !isset($profile['media']['nodes']) ) {
+	header('Content-type: text/plain; charset=utf-8');
+	exit("Can't extract media JSON. Private profile?");
+}
+
+$media = $profile['media']['nodes'];
 
 // 3. Print RSS
 echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
