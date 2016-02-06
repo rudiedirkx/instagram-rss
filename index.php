@@ -34,7 +34,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
 		<? foreach ($media as $node):
 			$link = $node['display_src'];
 			$thumb = $node['thumbnail_src'];
-			$title = trim(trim(@$node['caption']) . ' -- https://www.instagram.com/p/' . $node['code'] . '/');
+			$title = trim(trim(@$node['caption']) . ' -- https://www.instagram.com/p/' . $node['code'] . '/', ' -');
 			?>
 			<item>
 				<title><?= html($title) ?></title>
