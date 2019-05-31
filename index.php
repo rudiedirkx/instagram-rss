@@ -50,7 +50,18 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
 			$utc = $node['node']['taken_at_timestamp'];
 			$link = $node['node']['display_url'];
 			$thumb = $node['node']['thumbnail_src'];
-			$title = trim(trim(@$node['node']['edge_media_to_caption']['edges'][0]['node']['text']) . " \n\n $postUrl", ' -');
+			$title = trim($node['node']['edge_media_to_caption']['edges'][0]['node']['text'] ?? '');
+			$type = $node['node']['__typename'] ?? '';
+
+			if ($type == 'GraphVideo') {
+				$title = "(VIDEO) \n\n $title";
+			}
+			elseif ($type == 'GraphSidecar') {
+				$title = "(SLIDESHOW) \n\n $title";
+			}
+
+			$title = trim("$title \n\n $postUrl", ' -');
+
 			?>
 			<item>
 				<title><?= html($title) ?></title>
@@ -58,7 +69,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
 				<image>
 					<url><?= html($thumb) ?></url>
 					<link><?= html($link) ?></link>
-					<title><?= html($title) ?></title>
+					<title><?= html(mb_substr($title, 0, 100)) ?></title>
 				</image>
 				<guid isPermaLink="true"><?= html($postUrl) ?>/</guid>
 				<description><?= html($title) ?></description>
