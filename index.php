@@ -11,11 +11,11 @@ $username = (string) @$_GET['user'] ?: 'instagram';
 
 // 1. Overview
 $url = 'https://www.instagram.com/' . urlencode($username) . '/';
-$request = HTTP::create($url);
+$request = HTTP::create($url, ['headers' => ['User-agent' => 'WhatsApp/2.20.108 A']]);
 $response = $request->request();
 
 // 2. Extract JSON
-if ( !preg_match('#>\s*window._sharedData\s*=\s*(\{.+?)</script>#', $response->body, $match) ) {
+if ( !preg_match('#>\s*window._sharedData\s*=\s*(\{.+?)</script>#', $response, $match) ) {
 	exit("Can't extract any JSON. Wrong URL? $url");
 }
 
